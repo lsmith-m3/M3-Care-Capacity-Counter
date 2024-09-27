@@ -10,7 +10,7 @@ increase_amount = 10  # Amount to increase by each time
 delay_minutes = 5     # Time delay in minutes
 
 def push_number_to_smiirl(number):
-    url = f"http://api.smiirl.com/{counterMac}/set-number/{counterToken}/{number}"
+    url = f"http://api.smiirl.com/e08e3c332414/set-number/9185aaf9c581a93dbe8bb3867973d697/54321/{counterMac}/set-number/{counterToken}/{number}"
     try:
         req = urllib.request.Request(url)
         r = urllib.request.urlopen(req).read()
