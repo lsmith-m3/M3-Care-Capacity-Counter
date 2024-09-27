@@ -4,7 +4,7 @@ import time  # For adding delay
 
 # Change those lines to fit your device (check it on https://my.smiirl.com) and your data
 counterMac = 'e08e3c37e386'
-counterToken = 'cb8822a2b6ef2b1391aa1ba55c08c5b5'
+counterToken = '9185aaf9c581a93dbe8bb3867973d697'
 numberToShow = 204960  # Initial number to show
 increase_amount = 10  # Amount to increase by each time
 delay_minutes = 5     # Time delay in minutes
