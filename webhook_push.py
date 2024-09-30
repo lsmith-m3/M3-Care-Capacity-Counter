@@ -1,13 +1,16 @@
-import urllib, json
+import json
 import urllib.request
-import time  # For adding delay
+import time
 
-# Change those lines to fit your device (check it on https://my.smiirl.com) and your data
-counterMac = 'e08e3c332414'
-counterToken = '9185aaf9c581a93dbe8bb3867973d697'
-numberToShow = 204960  # Initial number to show
-increase_amount = 10  # Amount to increase by each time
-delay_minutes = 5     # Time delay in minutes
+# Load configuration from JSON file
+with open('config.json', 'r') as file:
+    config = json.load(file)
+
+counterMac = config['counterMac']
+counterToken = config['counterToken']
+numberToShow = config['numberToShow']
+increase_amount = config['increase_amount']
+delay_minutes = config['delay_minutes']
 
 def push_number_to_smiirl(number):
     url = f"http://api.smiirl.com/{counterMac}/set-number/{counterToken}/{number}"
@@ -16,7 +19,6 @@ def push_number_to_smiirl(number):
         r = urllib.request.urlopen(req).read()
         cont = json.loads(r.decode('utf-8'))
         
-        # Check if the API response status is 200
         if 'status' in cont and cont['status'] == 200:
             print(f"Number {number} successfully pushed to Smiirl counter.")
             return True
@@ -29,13 +31,8 @@ def push_number_to_smiirl(number):
 
 # Loop to update numberToShow every 5 minutes
 while True:
-    # Push the current number to the Smiirl counter
     success = push_number_to_smiirl(numberToShow)
-
     if success:
-        # Increase numberToShow by 10
         numberToShow += increase_amount
         print(f"Next number will be {numberToShow}")
-
-    # Wait for 5 minutes before sending the next request
     time.sleep(delay_minutes * 60)
