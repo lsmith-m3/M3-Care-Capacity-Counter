@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smiirl Counter Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #counter {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+        }
+        #status {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Smiirl Counter</h1>
+    <div id="counter">Loading...</div>
+    <div id="status">Status: Waiting for updates...</div>
+
+    <script>
+        // Function to fetch the current number from the JSON file
+        function fetchCounter() {
+            fetch('config.json')  // Fetch the configuration JSON file
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('counter').textContent = data.numberToShow; // Display current number
+                    document.getElementById('status').textContent = "Status: Updated"; // Update status
+                })
+                .catch(error => {
+                    console.error('Error fetching counter:', error);
+                    document.getElementById('status').textContent = "Status: Error fetching data"; // Show error status
+                });
+        }
+
+        // Initial fetch when the page loads
+        fetchCounter();
+
+        // Fetch the updated counter every 5 minutes (300000 milliseconds)
+        setInterval(fetchCounter, 300000); // Adjust this based on delay_minutes in config.json
+    </script>
+
+</body>
+</html>
